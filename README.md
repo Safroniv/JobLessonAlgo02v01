@@ -11,8 +11,7 @@ namespace GeekBrainsTests
         public int Value { get; set; }
         public Node NextNode { get; set; }
         public Node PrevNode { get; set; }
-    } 
-	//Начальную и конечную ноду нужно хранить в самой реализации интерфейса
+    }//Начальную и конечную ноду нужно хранить в самой реализации интерфейса
     public interface ILinkedList
     {
         int GetCount(); // возвращает количество элементов в списке
