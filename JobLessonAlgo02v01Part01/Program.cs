@@ -9,7 +9,7 @@ namespace JobLessonAlgo02v01Part01
         }
     }
 
-    }
+    
     public class Node
     {
         /// <summary>
