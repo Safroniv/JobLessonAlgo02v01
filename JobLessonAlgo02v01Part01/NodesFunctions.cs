@@ -4,30 +4,22 @@ namespace JobLessonAlgo02v01Part01
 {
     public class NodesFunctions : ILinkedList
     {
-        private readonly Node first = new Node();
-        private readonly Node last = new Node();
-
-
-            /// <summary>
-            /// Значение ноды
-            /// </summary>
-            public int Value { get; set; }
-            /// <summary>
-            /// Следующая нода
-            /// </summary>
-            public Node NextNode { get; set; }
-            /// <summary>
-            /// Предыдущая нода
-            /// </summary>
-            public Node PrevNode { get; set; }
+        private Node _firstNode;
+        private Node _lastNode;
         
-        public NodesFunctions()
-        {
-            first.NextNode = last;
-            last.PrevNode = first;
+        public Node FirstNode 
+        { get { return _firstNode; } set { _firstNode = value; } }
+        public Node LastNode
+        { get { return _lastNode; } set { _lastNode = value; } }
+
+        public NodesFunctions(int value)
+        {                       
+            FirstNode.Value = value;
+            FirstNode.PrevNode = null;
+            FirstNode.NextNode = null;
+            LastNode = FirstNode;
+
         }
-
-
 
         /// <summary>
         /// Добавление ноды в конец
@@ -35,35 +27,38 @@ namespace JobLessonAlgo02v01Part01
         /// <param name="value">значение ноды</param>
         public void AddNode(int value)
         {
-            last.PrevNode = new Node()
+            var newNode = new Node {Value = value};
+            if (FirstNode == null)
             {
-                Value = value,
-                PrevNode = last.PrevNode
-            };
+                FirstNode = newNode;
+                LastNode = newNode;
+            }
+            else
+            {
+                Node currentNode = LastNode;
+                currentNode.NextNode = newNode;
+                newNode.PrevNode = currentNode;
+                LastNode = newNode;
+            }
         }
         /// <summary>
         /// Добавление ноды после элемента
         /// </summary>
         /// <param name="node">позиция ноды</param>
         /// <param name="value">значение ноды</param>
-        /// <exception cref="ArgumentException">Если нода после которой необходимо добавить новую, не найдена, то выдаёт исключение</exception>
         public void AddNodeAfter(Node node, int value)
         {
-            Node currentNode = first.NextNode;
-            while (currentNode != last && currentNode != node)
-            { currentNode = currentNode.NextNode; }
-            if (currentNode != last)
-            {
-                currentNode.NextNode = new Node()
-                {
-                    Value = value,
-                    PrevNode = currentNode,
-                    NextNode = currentNode.NextNode
-
-                };
-            }
+            Node newNode = new Node() { Value = value };
+            if (newNode.PrevNode==LastNode)
+                AddNode(value);
             else
-            { throw new ArgumentException("Ноды не существует!", nameof(node)); }
+            {
+                Node nextNode = node.NextNode;
+                nextNode.PrevNode = newNode;
+                node.NextNode = newNode;
+                newNode.NextNode = nextNode;
+                newNode.PrevNode = node;
+            }
         }
         /// <summary>
         /// Поиск ноды по значению
@@ -72,15 +67,14 @@ namespace JobLessonAlgo02v01Part01
         /// <returns>Возвращает значение ноды или null</returns>
         public Node FindNode(int searchValue)
         {
-            Node currentNode = first.NextNode;
-            while (currentNode != last && currentNode.Value != searchValue)
+            var currentNode = FirstNode;
+            while(currentNode!=null)
             {
+                if (currentNode.Value == searchValue)
+                    return currentNode;
                 currentNode = currentNode.NextNode;
             }
-            if (currentNode != last)
-                return currentNode;
-            else
-                return null;
+            return null;
         }
         /// <summary>
         /// Определение количества элементов в списке
@@ -89,8 +83,8 @@ namespace JobLessonAlgo02v01Part01
         public int GetCount()
         {
             int count = 0;
-            Node currentNode = first.NextNode;
-            while (currentNode != last)
+            Node currentNode = FirstNode;
+            while (currentNode != LastNode)
             {
                 currentNode = currentNode.NextNode;
                 count++;
@@ -101,16 +95,11 @@ namespace JobLessonAlgo02v01Part01
         /// Удаление ноды по индексу
         /// </summary>
         /// <param name="index">позиция ноды</param>
-        /// <exception cref="ArgumentException">В случае отсутствия ноды по указанной позии, выкидывает исключение</exception>
         public void RemoveNode(int index)
         {
             int count = 0;
-            Node currentNode = first.NextNode;
-            while ((currentNode != last) && (count < index))
-            {
-                currentNode = currentNode.NextNode;
-                count++;
-            }
+            Node currentNode = FirstNode;
+            GetCount();
             if (count == index)
             { RemoveNode(currentNode); }
             else
@@ -128,11 +117,6 @@ namespace JobLessonAlgo02v01Part01
             prev.NextNode = next;
             node.NextNode = null;
             node.PrevNode = null;
-        }
-
-        public void MassiveValues ()
-        {
-
         }
 
     }
