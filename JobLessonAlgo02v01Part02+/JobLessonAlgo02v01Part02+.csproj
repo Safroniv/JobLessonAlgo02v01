@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CE08CCD7-9C78-4E5C-B93A-6C912C0D74B1}</ProjectGuid>
+    <ProjectGuid>{6BF4BFF7-025D-4C99-A6BE-7A82F5A9AF53}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>JobLessonAlgo02v01Part01</RootNamespace>
-    <AssemblyName>JobLessonAlgo02v01Part01</AssemblyName>
+    <RootNamespace>JobLessonAlgo02v01Part02_</RootNamespace>
+    <AssemblyName>JobLessonAlgo02v01Part02+</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,9 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILinkedList.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="NodesFunctions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
